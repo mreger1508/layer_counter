@@ -17,11 +17,15 @@ class LayerCounter:
         self.toolbar = QToolBar("Layer Counter Toolbar")
         self.iface.addToolBar(self.toolbar)
 
-        # load icon
+        # load icon safely
         icon_path = os.path.join(os.path.dirname(__file__), "icon.png")
-        icon = QIcon(icon_path)
 
-        # actions to add layer counter
+        if not os.path.exists(icon_path):
+            print(f"[LayerCounter] Warning: icon.png not found at {icon_path}")
+            icon = QIcon()
+        else:
+            icon = QIcon(icon_path)
+
         self.addLayerCounterAction = QAction(icon, "Count Layers", self.iface.mainWindow())
         self.addLayerCounterAction.triggered.connect(self.count_layers)
         self.toolbar.addAction(self.addLayerCounterAction)
