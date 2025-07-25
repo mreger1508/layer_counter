@@ -1,27 +1,26 @@
-name: Build QGIS Plugin
+name: Build and Release QGIS Plugin
 
 on:
   push:
     tags:
-      - 'v*'  # z.B. v0.1
+      - 'v*'
+      - 'version_*'
 
 jobs:
-  build-and-release:
+  build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write 
+
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Rename plugin folder to match QGIS expectations
-        run: |
-          mv layer_counter LayerCounter
+      - name: Create plugin zip
+        run: zip -r LayerCounter.zip LayerCounter
 
-      - name: Create plugin ZIP
-        run: |
-          zip -r LayerCounter.zip LayerCounter
-
-      - name: Upload plugin ZIP as release asset
+      - name: Create GitHub Release and upload ZIP
         uses: softprops/action-gh-release@v1
         with:
           files: LayerCounter.zip
