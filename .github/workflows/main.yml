@@ -11,14 +11,18 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write 
+      contents: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Create plugin zip
-        run: zip -r LayerCounter.zip LayerCounter
+      - name: Create clean plugin zip
+        run: |
+          mkdir build
+          cp -r LayerCounter build/LayerCounter
+          cd build
+          zip -r ../LayerCounter.zip LayerCounter
 
       - name: Create GitHub Release and upload ZIP
         uses: softprops/action-gh-release@v1
