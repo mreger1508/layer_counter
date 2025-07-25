@@ -1,0 +1,10 @@
+[general]
+name=Layer Counter
+email=martin150897@gmail.com
+author=Martin Reger
+qgisMinimumVersion=3.0
+description=Counts selected layers
+about=This tool counts selected layers in layers pane
+version=version 0.1
+tracker=https://github.com/mreger1508/layer_counter/issues
+repository=https://github.com/mreger1508/layer_counter/
